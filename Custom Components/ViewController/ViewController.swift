@@ -7,45 +7,90 @@
 
 import UIKit
 import SnapKit
+import Combine
+import CombineCocoa
 
 class ViewController: UIViewController {
-    
-    private let textField: SkyFloatingLabelTextField = {
+    private let textFieldUsername: SkyFloatingLabelTextField = {
         let textField = SkyFloatingLabelTextField()
         textField.placeholder = "Username"
+        textField.text = "Kha Nguyen"
         return textField
     }()
+    
+    private let textFieldEmail: SkyFloatingLabelTextField = {
+        let textField = SkyFloatingLabelTextField()
+        textField.placeholder = "Email"
+        textField.text = "nkkha.dev"
+        return textField
+    }()
+    
+    private let textFieldPassword: SkyFloatingLabelTextField = {
+        let textField = SkyFloatingLabelTextField()
+        textField.isSecureTextEntry = true
+        textField.placeholder = "Password"
+        textField.text = "Password"
+        return textField
+    }()
+    
+    private lazy var vStackView: UIStackView = {
+        let stackView = UIStackView(arrangedSubviews: [textFieldUsername, textFieldEmail, textFieldPassword])
+        stackView.axis = .vertical
+        stackView.spacing = 16
+        stackView.alignment = .top
+        return stackView
+    }()
+    
+    private var cancellables = Set<AnyCancellable>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setUpViews()
+        setUpObservers()
     }
 
     private func setUpViews() {
         view.backgroundColor = AppColorV4.background
-        view.addSubview(textField)
-        
-        textField.snp.makeConstraints { make in
+        view.addSubview(vStackView)
+        setUpTapOutsideToDismissKeyboard()
+
+        vStackView.snp.makeConstraints { make in
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.centerY.equalToSuperview()
-            make.height.equalTo(44)
         }
         
-        applySkyscannerTheme(textField: textField)
+        textFieldUsername.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+//            make.height.equalTo(56)
+        }
+        
+        textFieldEmail.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+//            make.height.equalTo(56)
+        }
+        
+        textFieldPassword.snp.makeConstraints { make in
+            make.leading.equalToSuperview()
+            make.trailing.equalToSuperview()
+//            make.height.equalTo(56)
+        }
     }
     
-    func applySkyscannerTheme(textField: SkyFloatingLabelTextField) {
-        textField.tintColor = AppColorV4.accent
-        textField.textColor = AppColorV4.Text.default
-        textField.lineColor = AppColorV4.borderDivider
-        textField.selectedTitleColor = AppColorV4.accent
-        textField.selectedLineColor = AppColorV4.accent
-
-        textField.titleLabel.font = .systemFont(ofSize: 12)
-        textField.placeholderFont = .systemFont(ofSize: 16)
-        textField.font = .systemFont(ofSize: 16)
+    private func setUpObservers() {
+        textFieldEmail.textPublisher.sink { text in
+            guard let text = text, !text.isEmpty else {
+                self.textFieldEmail.errorMessage = ""
+                self.textFieldEmail.warningMessage = ""
+                return
+            }
+            
+            self.textFieldEmail.errorMessage = !text.contains("@") ? "Invalid email address" : ""
+            self.textFieldEmail.warningMessage = text.contains("#") ? "Invalid special character" : ""
+        }.store(in: &cancellables)
     }
 }
 

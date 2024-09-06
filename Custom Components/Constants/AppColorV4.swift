@@ -96,7 +96,6 @@ struct AppColorV4 {
         static let disabledButton = UIColor(named: "text-disabled-button")!
         static let disabledChip = UIColor(named: "text-disabled-chip")!
         static let hint = UIColor(named: "text-hint")!
-        static let accent = UIColor(named: "text-accent")!
         static let info = UIColor(named: "text-info")!
         static let placeholder = UIColor(named: "text-placeholder")!
         static let secondary = UIColor(named: "text-secondary")!
