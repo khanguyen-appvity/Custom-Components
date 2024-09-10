@@ -10,6 +10,7 @@
 //  for the specific language governing permissions and limitations under the License.
 
 import UIKit
+import Combine
 
 /**
  An enum for the possible error label placements.
@@ -19,6 +20,11 @@ import UIKit
 public enum ErrorMessagePlacement {
     case `default`
     case bottom
+}
+
+public enum TrailingType {
+    case clear
+    case custom
 }
 
 /**
@@ -343,7 +349,13 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
             updateControl(true)
         }
     }
+    
+    open var trailingType: TrailingType = .clear
+    
+    public let trailingButtonTapped = PassthroughSubject<Void, Never>()
 
+    private var cancellables = Set<AnyCancellable>()
+    
     // MARK: - Initializers
 
     /**
@@ -366,6 +378,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
 
     fileprivate final func init_SkyFloatingLabelTextField() {
         borderStyle = .none
+        setTrailingIcon()
         createTitleLabel()
         createLineView()
         createErrorLabel()
@@ -373,6 +386,44 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         addEditingChangedObserver()
         updateTextAligment()
         applySkyscannerTheme()
+    }
+    
+    open func setTrailingIcon(iconName: String = "ic-close", type: TrailingType = .clear) {
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 24, height: 24))
+        button.setImage(#imageLiteral(resourceName: iconName), for: .normal)
+        button.imageView?.tintColor = AppColorV4.Text.default
+        button.tapPublisher
+            .sink { [weak self] in
+                self?.clearText()
+                self?.trailingButtonTapped.send()
+            }
+            .store(in: &cancellables)
+        
+        rightView = button
+        trailingType = type
+        updateTrailingIconVisibility()
+    }
+    
+    open func updateTrailingIconVisibility() {
+        rightViewMode = trailingType == .custom ? .always : ((text ?? "").isEmpty ? .never : .whileEditing)
+    }
+    
+    open override func rightViewRect(forBounds bounds: CGRect) -> CGRect {
+        let superRect = super.rightViewRect(forBounds: bounds)
+        let height = superRect.size.height
+        let rect = CGRect(
+            x: superRect.origin.x,
+            y: height - 8,
+            width: superRect.size.width,
+            height: height
+        )
+        return rect
+    }
+    
+    @objc private func clearText() {
+        text = ""
+        errorMessage = ""
+        warningMessage = ""
     }
 
     fileprivate func addEditingChangedObserver() {
@@ -467,6 +518,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         updateColors()
         updateLineView()
         updateTitleLabel(animated)
+        updateTrailingIconVisibility()
         invalidateIntrinsicContentSize()
     }
 

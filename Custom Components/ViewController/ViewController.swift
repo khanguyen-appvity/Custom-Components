@@ -53,9 +53,9 @@ class ViewController: UIViewController {
         setUpTapOutsideToDismissKeyboard()
 
         vStackView.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(200)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
-            make.centerY.equalToSuperview()
         }
         
         textFieldUsername.snp.makeConstraints { make in
@@ -87,11 +87,12 @@ class ViewController: UIViewController {
         }.store(in: &cancellables)
         
         textFieldUsername.textPublisher.sink { text in
-            
+            print("Username: \(text ?? "")")
         }.store(in: &cancellables)
+        textFieldUsername.setTrailingIcon(iconName: "ic-calendar-today", type: .custom)
         
         textFieldPassword.textPublisher.sink { text in
-            
+            print("Password: \(text ?? "")")
         }.store(in: &cancellables)
     }
 }

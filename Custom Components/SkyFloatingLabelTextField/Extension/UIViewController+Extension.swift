@@ -10,7 +10,6 @@ import UIKit
 extension UIViewController {
     func setUpTapOutsideToDismissKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
     }
     
