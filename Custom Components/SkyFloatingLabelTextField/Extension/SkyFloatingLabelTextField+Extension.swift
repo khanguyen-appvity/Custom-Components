@@ -18,8 +18,8 @@ extension SkyFloatingLabelTextField {
         self.selectedLineHeight = 2.0
         self.errorMessagePlacement = .bottom
         
-        self.titleLabel.font = .systemFont(ofSize: 12)
-        self.placeholderFont = .systemFont(ofSize: 16)
-        self.font = .systemFont(ofSize: 16)
+        self.titleLabel.font = AppFont.robotoRegular(ofSize: 12)
+        self.placeholderFont = AppFont.robotoRegular(ofSize: 16)
+        self.font = AppFont.robotoRegular(ofSize: 16)
     }
 }

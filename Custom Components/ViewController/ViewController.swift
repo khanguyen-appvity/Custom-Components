@@ -14,14 +14,12 @@ class ViewController: UIViewController {
     private let textFieldUsername: SkyFloatingLabelTextField = {
         let textField = SkyFloatingLabelTextField()
         textField.placeholder = "Username"
-        textField.text = "Kha Nguyen"
         return textField
     }()
     
     private let textFieldEmail: SkyFloatingLabelTextField = {
         let textField = SkyFloatingLabelTextField()
         textField.placeholder = "Email"
-        textField.text = "nkkha.dev"
         return textField
     }()
     
@@ -29,7 +27,6 @@ class ViewController: UIViewController {
         let textField = SkyFloatingLabelTextField()
         textField.isSecureTextEntry = true
         textField.placeholder = "Password"
-        textField.text = "Password"
         return textField
     }()
     
@@ -64,19 +61,16 @@ class ViewController: UIViewController {
         textFieldUsername.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-//            make.height.equalTo(56)
         }
         
         textFieldEmail.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-//            make.height.equalTo(56)
         }
         
         textFieldPassword.snp.makeConstraints { make in
             make.leading.equalToSuperview()
             make.trailing.equalToSuperview()
-//            make.height.equalTo(56)
         }
     }
     

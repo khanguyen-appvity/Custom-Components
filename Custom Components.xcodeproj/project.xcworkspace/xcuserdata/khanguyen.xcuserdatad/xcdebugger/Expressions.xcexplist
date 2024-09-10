@@ -3,6 +3,14 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "SkyFloatingLabelTextField.configureDefaultLineHeight():SkyFloatingLabelTextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.lineHeight">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in ViewController.setUpObservers():ViewController.swift">
          <PersistentStrings>
             <PersistentString
@@ -11,10 +19,29 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "SkyFloatingLabelTextField.configureDefaultLineHeight():SkyFloatingLabelTextField.swift">
+         contextName = "SkyFloatingLabelTextField.intrinsicContentSize.getter:SkyFloatingLabelTextField.swift">
          <PersistentStrings>
             <PersistentString
-               value = "self.lineHeight">
+               value = "titleHeight() + textHeight() + errorHeight() + 16">
+            </PersistentString>
+            <PersistentString
+               value = "titleHeight() + textHeight() + errorHeight()">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SkyFloatingLabelTextField.errorHeight():SkyFloatingLabelTextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "errorLabel.text">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "SkyFloatingLabelTextField.editingRect(forBounds:):SkyFloatingLabelTextField.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "errorHeight()">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

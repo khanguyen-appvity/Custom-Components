@@ -126,7 +126,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
 
     /// A UIColor value that determines the text color of the title label when in the normal state
-    @IBInspectable dynamic open var titleColor: UIColor = AppColorV4.accent {
+    @IBInspectable dynamic open var titleColor: UIColor = AppColorV4.Text.placeholder {
         didSet {
             updateTitleColor()
         }
@@ -412,7 +412,6 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
 
     fileprivate func createLineView() {
-
         if lineView == nil {
             let lineView = UIView()
             lineView.isUserInteractionEnabled = false
@@ -767,7 +766,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         } else {
             let lineRect = lineViewRectForBounds(bounds, editing: editing)
             if editing {
-                let originY = lineRect.origin.y + selectedLineHeight + 4
+                let originY = lineRect.origin.y + selectedLineHeight + 4 - (isErrorVisible() ? 6 : 0)
                 return CGRect(x: 0, y: originY, width: bounds.size.width, height: errorHeight())
             }
             let originY = lineRect.origin.y + selectedLineHeight + errorHeight() + 4
@@ -787,7 +786,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
 //        if errorMessagePlacement == .bottom {
 //            return CGRect(x: 0, y: textRect(forBounds: bounds).maxY, width: bounds.size.width, height: height)
 //        } else {
-            return CGRect(x: 0, y: bounds.size.height - height - 8, width: bounds.size.width, height: height)
+            return CGRect(x: 0, y: bounds.size.height - height - 6 - errorPadding(), width: bounds.size.width, height: height)
 //        }
     }
 
@@ -810,9 +809,13 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     open func errorHeight() -> CGFloat {
         if let errorLabel = errorLabel,
             let font = errorLabel.font {
-            return font.lineHeight
+            return font.lineHeight + errorPadding()
         }
         return 15.0
+    }
+    
+    open func errorPadding() -> CGFloat {
+        return isErrorVisible() ? 14 : 0
     }
 
     /**
