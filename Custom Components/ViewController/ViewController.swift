@@ -89,7 +89,7 @@ class ViewController: UIViewController {
         textFieldUsername.textPublisher.sink { text in
             print("Username: \(text ?? "")")
         }.store(in: &cancellables)
-        textFieldUsername.setTrailingIcon(iconName: "ic-calendar-today", type: .custom)
+//        textFieldUsername.setTrailingIcon(iconName: "ic-calendar-today", type: .custom)
         
         textFieldPassword.textPublisher.sink { text in
             print("Password: \(text ?? "")")
