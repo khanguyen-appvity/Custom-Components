@@ -85,6 +85,14 @@ class ViewController: UIViewController {
             self.textFieldEmail.errorMessage = !text.contains("@") ? "Invalid email address." : ""
             self.textFieldEmail.warningMessage = text.contains("#") ? "Invalid special characters." : ""
         }.store(in: &cancellables)
+        
+        textFieldUsername.textPublisher.sink { text in
+            
+        }.store(in: &cancellables)
+        
+        textFieldPassword.textPublisher.sink { text in
+            
+        }.store(in: &cancellables)
     }
 }
 

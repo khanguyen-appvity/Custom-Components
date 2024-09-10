@@ -467,6 +467,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         updateColors()
         updateLineView()
         updateTitleLabel(animated)
+        invalidateIntrinsicContentSize()
     }
 
     fileprivate func updateLineView() {
@@ -766,10 +767,10 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
         } else {
             let lineRect = lineViewRectForBounds(bounds, editing: editing)
             if editing {
-                let originY = lineRect.origin.y + selectedLineHeight + 4 - (isErrorVisible() ? 6 : 0)
+                let originY = lineRect.origin.y + selectedLineHeight + 4 - (isErrorVisible() ? 8 : 0)
                 return CGRect(x: 0, y: originY, width: bounds.size.width, height: errorHeight())
             }
-            let originY = lineRect.origin.y + selectedLineHeight + errorHeight() + 4
+            let originY = lineRect.origin.y + selectedLineHeight + errorHeight() + 4 - (isErrorVisible() ? 8 : 0)
             return CGRect(x: 0, y: originY, width: bounds.size.width, height: errorHeight())
         }
     }
@@ -815,7 +816,7 @@ open class SkyFloatingLabelTextField: UITextField { // swiftlint:disable:this ty
     }
     
     open func errorPadding() -> CGFloat {
-        return isErrorVisible() ? 14 : 0
+        return isErrorVisible() ? 16 : 0
     }
 
     /**
